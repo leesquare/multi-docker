@@ -9,14 +9,14 @@ script:
   - docker run liatdw/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t liatdw/multi-client -f ./client/Dockerfile ./client
-  - docker build -t liatdw/multi-nginx  -f ./nginx/Dockerfile  ./nginx
-  - docker build -t liatdw/multi-server -f ./server/Dockerfile ./server
-  - docker build -t liatdw/multi-worker -f ./worker/Dockerfile ./worker
+  - docker build -t liatdw/multi-docker:multi-client -f ./client/Dockerfile ./client
+  - docker build -t liatdw/multi-docker:multi-nginx  -f ./nginx/Dockerfile  ./nginx
+  - docker build -t liatdw/multi-docker:multi-server -f ./server/Dockerfile ./server
+  - docker build -t liatdw/multi-docker:multi-worker -f ./worker/Dockerfile ./worker
   # log in to docker CLI
   - echo "$DOCKER_PASSSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push images to docker hub
-  - docker push liatdw/multi-client
-  - docker push liatdw/multi-nginx
-  - docker push liatdw/multi-server
-  - docker push liatdw/multi-worker
+  - docker push liatdw/multi-docker:multi-client
+  - docker push liatdw/multi-docker:multi-nginx
+  - docker push liatdw/multi-docker:multi-server
+  - docker push liatdw/multi-docker:multi-worker
